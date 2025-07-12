@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.js",
+      "src": "api/index.js",
       "use": "@vercel/node"
     }
   ],
@@ -10,7 +10,7 @@
     {
       "src": "/neon/memory",
       "methods": ["GET", "POST"],
-      "dest": "index.js"
+      "dest": "api/index.js"
     }
   ]
 }
