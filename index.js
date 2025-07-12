@@ -24,12 +24,11 @@ app.post("/neon/memory", async (req, res) => {
 app.get("/neon/memory", async (req, res) => {
   const { thread_id } = req.query;
   const result = await pool.query(
-    "SELECT * FROM memory_logs WHERE thread_id = $1 ORDER BY created_at DESC LIMIT 1",
+    "SELECT * FROM memory_logs WHERE thread_id = $1 ORDER BY id DESC LIMIT 1",
     [thread_id]
   );
   res.json(result.rows[0] || {});
 });
 
-app.listen(3000, () => {
-  console.log("API running on port 3000");
-});
+// ✅ listen不要 → exportすることでVercelに対応
+export default app;
