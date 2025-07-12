@@ -14,13 +14,13 @@ if (!process.env.DATABASE_URL) {
   console.log("✅ DATABASE_URL を取得しました");
 }
 
-// データベース接続
+// PostgreSQL接続
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
 });
 
-// 記憶を保存（POST）
+// 保存エンドポイント（POST）
 app.post("/neon/memory", async (req, res) => {
   try {
     const { thread_id, content, tags } = req.body;
@@ -30,12 +30,12 @@ app.post("/neon/memory", async (req, res) => {
     );
     res.sendStatus(200);
   } catch (error) {
-    console.error("❌ 保存中にエラー：", error);
+    console.error("❌ 保存中にエラー:", error);
     res.status(500).send("サーバーエラー（保存失敗）");
   }
 });
 
-// 記憶を取得（GET）
+// 取得エンドポイント（GET）
 app.get("/neon/memory", async (req, res) => {
   try {
     const { thread_id } = req.query;
@@ -45,7 +45,7 @@ app.get("/neon/memory", async (req, res) => {
     );
     res.json(result.rows[0] || {});
   } catch (error) {
-    console.error("❌ 取得中にエラー：", error);
+    console.error("❌ 取得中にエラー:", error);
     res.status(500).send("サーバーエラー（取得失敗）");
   }
 });
